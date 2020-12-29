@@ -52,6 +52,20 @@ def initialize_driver(headless=True, with_ublock=False, chromedriver_path=None):
 
     log.info(f"Initialising chromedriver at {chromedriver_path}...")
     chrome_options = Options()
+    
+    chrome_options.add_argument("--disable-blink-features=AutomationControlled")
+    chrome_options.add_experimental_option("excludeSwitches", ["enable-automation", "enable-logging"])
+    chrome_options.add_experimental_option('useAutomationExtension', False)
+    chrome_options.add_argument('--disable-dev-shm-usage')
+    chrome_options.accept_untrusted_certs = True
+    chrome_options.assume_untrusted_cert_issuer = True
+    chrome_options.add_argument("--no-sandbox")
+    chrome_options.add_argument("--allow-http-screen-capture")
+    chrome_options.add_argument("--disable-impl-side-painting")
+    chrome_options.add_argument("--disable-setuid-sandbox")
+    chrome_options.add_argument("--disable-seccomp-filter-sandbox")
+
+    
     if headless:
         chrome_options.add_argument("--headless")
         chrome_options.add_argument("window-size=1920,1080")
